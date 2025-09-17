@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Small HTML Form</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    body { display: grid; place-items: center; min-height: 100dvh; margin: 0; background: #f6f7fb; }
+    .card { width: min(520px, 92%); background: #fff; padding: 1.25rem 1.25rem 1rem; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+    h1 { font-size: 1.25rem; margin: 0 0 .75rem; }
+    p.hint { color: #555; margin: 0 0 1rem; font-size: .95rem; }
+    form { display: grid; gap: .85rem; }
+    .row { display: grid; gap: .5rem; }
+    label { font-weight: 600; }
+    input, select, textarea, button { font: inherit; }
+    input, select, textarea { width: 100%; padding: .6rem .7rem; border: 1px solid #d7dbe3; border-radius: 10px; background: #fbfcfe; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: #6a8cff; box-shadow: 0 0 0 3px rgba(106,140,255,.2); background: #fff; }
+    .inline { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .inline label { font-weight: 500; }
+    .actions { display: flex; gap: .6rem; justify-content: flex-end; margin-top: .5rem; }
+    button { padding: .6rem 1rem; border: 0; border-radius: 999px; cursor: pointer; }
+    .btn-primary { background: #6a8cff; color: white; }
+    .btn-secondary { background: #eef1f7; }
+    .required { color: #e5484d; margin-left: .25rem; }
+    .note { font-size: .85rem; color: #666; }
+  </style>
+</head>
+<body>
+  <main class="card" aria-labelledby="formTitle">
+    <h1 id="formTitle">Contact Sign‑Up</h1>
+    <p class="hint">A compact, accessible form with client‑side validation.</p>
+
+    <form action="{{url_for('predict_datapoint')}}" method="post" autocomplete="on">
+      <div class="row">
+        <label for="name"><Template>Tempreture</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="Temprature" type="text" placeholder="Tempreture"  maxlength="60" autofocus />
+      </div>
+      <div class="row">
+        <label for="name"><Template>RH</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="RH" type="text" placeholder="RH"  maxlength="60" autofocus />
+      </div>
+      <div class="row">
+        <label for="name"><Template>Ws</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="Ws" type="text" placeholder="Ws"  maxlength="60" autofocus />
+      </div>
+      <div class="row">
+        <label for="name"><Template>Rain</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="Rain" type="text" placeholder="Rain"  maxlength="60" autofocus />
+      </div>
+       <div class="row">
+        <label for="name"><Template>FFMC</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="FFMC" type="text" placeholder="FFMC"  maxlength="60" autofocus />
+      </div>
+      <div class="row">
+        <label for="name"><Template>DMC</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="DMC" type="text" placeholder="DMC"  maxlength="60" autofocus />
+      </div>
+      <div class="row">
+        <label for="name"><Template>ISI</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="ISI" type="text" placeholder="ISI"  maxlength="60" autofocus />
+      </div>
+      <div class="row">
+        <label for="name"><Template>Classes</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="Classes" type="text" placeholder="Classes"  maxlength="60" autofocus />
+      </div>
+      <div class="row">
+        <label for="name"><Template>Region</Template><span class="required" aria-hidden="true">*</span></label>
+        <input id="name" name="Region" type="text" placeholder="Region" maxlength="60" autofocus />
+      </div>
+
+       <div class="actions">
+        <!-- <button type="reset" class="btn-secondary">Reset</button> -->
+        <button type="submit" class="btn-primary">Submit</button>
+      </div>
+    </form>
+    <div>
+        <h1>
+            THE FWI prediction is {{results}}
+        </h1>
+    </div>
+  </main>
+
+</body>
+</html>

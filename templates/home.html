@@ -3,83 +3,182 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Small HTML Form</title>
+  <title>FWI Prediction Form</title>
   <style>
-    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-    body { display: grid; place-items: center; min-height: 100dvh; margin: 0; background: #f6f7fb; }
-    .card { width: min(520px, 92%); background: #fff; padding: 1.25rem 1.25rem 1rem; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
-    h1 { font-size: 1.25rem; margin: 0 0 .75rem; }
-    p.hint { color: #555; margin: 0 0 1rem; font-size: .95rem; }
-    form { display: grid; gap: .85rem; }
-    .row { display: grid; gap: .5rem; }
-    label { font-weight: 600; }
-    input, select, textarea, button { font: inherit; }
-    input, select, textarea { width: 100%; padding: .6rem .7rem; border: 1px solid #d7dbe3; border-radius: 10px; background: #fbfcfe; outline: none; }
-    input:focus, select:focus, textarea:focus { border-color: #6a8cff; box-shadow: 0 0 0 3px rgba(106,140,255,.2); background: #fff; }
-    .inline { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-    .inline label { font-weight: 500; }
-    .actions { display: flex; gap: .6rem; justify-content: flex-end; margin-top: .5rem; }
-    button { padding: .6rem 1rem; border: 0; border-radius: 999px; cursor: pointer; }
-    .btn-primary { background: #6a8cff; color: white; }
-    .btn-secondary { background: #eef1f7; }
-    .required { color: #e5484d; margin-left: .25rem; }
-    .note { font-size: .85rem; color: #666; }
+    :root {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      --accent: #e14b2a;
+      --bg1: #e8f7ee;
+      --bg2: #fff6ed;
+      --card: #ffffffcc;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --muted: #555;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(90deg, var(--bg1), var(--bg2));
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: min(1100px, 100%);
+    }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    h1 {
+      font-size: 1.4rem;
+      margin: 0 0 .75rem;
+      color: #111;
+    }
+    p.hint {
+      color: var(--muted);
+      margin: 0 0 1rem;
+      font-size: .95rem;
+    }
+    form {
+      display: grid;
+      gap: .85rem;
+    }
+    .row {
+      display: grid;
+      gap: .5rem;
+    }
+    label {
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: .6rem .7rem;
+      border: 1px solid #d7dbe3;
+      border-radius: 10px;
+      background: #fbfcfe;
+      outline: none;
+    }
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(225,75,42,.2);
+      background: #fff;
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: .5rem;
+    }
+    button {
+      padding: .6rem 1.2rem;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+    }
+    .instructions h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #111;
+    }
+    .instructions ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: .95rem;
+    }
+    .instructions li strong {
+      color: #111;
+    }
+    .result {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <main class="card" aria-labelledby="formTitle">
-    <h1 id="formTitle">Contact Sign‑Up</h1>
-    <p class="hint">A compact, accessible form with client‑side validation.</p>
+  <div class="layout">
+    <!-- Form card -->
+    <main class="card" aria-labelledby="formTitle">
+      <h1 id="formTitle">FWI Prediction Form</h1>
+      <p class="hint">Enter meteorological values from the Algerian Forest Fires dataset to predict the Fire Weather Index (FWI).</p>
 
-    <form action="{{url_for('predict_datapoint')}}" method="post" autocomplete="on">
-      <div class="row">
-        <label for="name"><Template>Tempreture</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="Temprature" type="text" placeholder="Tempreture"  maxlength="60" autofocus />
-      </div>
-      <div class="row">
-        <label for="name"><Template>RH</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="RH" type="text" placeholder="RH"  maxlength="60" autofocus />
-      </div>
-      <div class="row">
-        <label for="name"><Template>Ws</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="Ws" type="text" placeholder="Ws"  maxlength="60" autofocus />
-      </div>
-      <div class="row">
-        <label for="name"><Template>Rain</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="Rain" type="text" placeholder="Rain"  maxlength="60" autofocus />
-      </div>
-       <div class="row">
-        <label for="name"><Template>FFMC</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="FFMC" type="text" placeholder="FFMC"  maxlength="60" autofocus />
-      </div>
-      <div class="row">
-        <label for="name"><Template>DMC</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="DMC" type="text" placeholder="DMC"  maxlength="60" autofocus />
-      </div>
-      <div class="row">
-        <label for="name"><Template>ISI</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="ISI" type="text" placeholder="ISI"  maxlength="60" autofocus />
-      </div>
-      <div class="row">
-        <label for="name"><Template>Classes</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="Classes" type="text" placeholder="Classes"  maxlength="60" autofocus />
-      </div>
-      <div class="row">
-        <label for="name"><Template>Region</Template><span class="required" aria-hidden="true">*</span></label>
-        <input id="name" name="Region" type="text" placeholder="Region" maxlength="60" autofocus />
-      </div>
+      <form action="{{url_for('predict_datapoint')}}" method="post" autocomplete="on">
+        <div class="row">
+          <label for="temp">Temperature (°C)</label>
+          <input id="temp" name="Temprature" type="text" placeholder="e.g., 28" required />
+        </div>
+        <div class="row">
+          <label for="rh">Relative Humidity (%)</label>
+          <input id="rh" name="RH" type="text" placeholder="e.g., 45" required />
+        </div>
+        <div class="row">
+          <label for="ws">Wind Speed (km/h)</label>
+          <input id="ws" name="Ws" type="text" placeholder="e.g., 14" required />
+        </div>
+        <div class="row">
+          <label for="rain">Rain (mm)</label>
+          <input id="rain" name="Rain" type="text" placeholder="e.g., 0.0" required />
+        </div>
+        <div class="row">
+          <label for="ffmc">FFMC (Fine Fuel Moisture Code)</label>
+          <input id="ffmc" name="FFMC" type="text" placeholder="e.g., 86.2" required />
+        </div>
+        <div class="row">
+          <label for="dmc">DMC (Duff Moisture Code)</label>
+          <input id="dmc" name="DMC" type="text" placeholder="e.g., 26.7" required />
+        </div>
+        <div class="row">
+          <label for="isi">ISI (Initial Spread Index)</label>
+          <input id="isi" name="ISI" type="text" placeholder="e.g., 5.4" required />
+        </div>
+        <div class="row">
+          <label for="classes">Classes (Fire/Not Fire)</label>
+          <input id="classes" name="Classes" type="text" placeholder="e.g., fire" required />
+        </div>
+        <div class="row">
+          <label for="region">Region (1 or 2)</label>
+          <input id="region" name="Region" type="text" placeholder="1 = Bejaia, 2 = Sidi Bel-abbes" required />
+        </div>
+        <div class="actions">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
 
-       <div class="actions">
-        <!-- <button type="reset" class="btn-secondary">Reset</button> -->
-        <button type="submit" class="btn-primary">Submit</button>
+      <div class="result">
+        THE FWI prediction is {{results}}
       </div>
-    </form>
-    <div>
-        <h1>
-            THE FWI prediction is {{results}}
-        </h1>
-    </div>
-  </main>
+    </main>
 
+    <!-- Instructions card -->
+    <aside class="card instructions">
+      <h2>Field Instructions</h2>
+      <ul>
+        <li><strong>Temperature (°C):</strong> Daily average temperature in Celsius.</li>
+        <li><strong>Relative Humidity (%):</strong> Daily mean relative humidity.</li>
+        <li><strong>Wind Speed (km/h):</strong> Daily mean wind speed.</li>
+        <li><strong>Rain (mm):</strong> Total rainfall for the day.</li>
+        <li><strong>FFMC:</strong> Fine Fuel Moisture Code – moisture content of surface litter and fine fuels.</li>
+        <li><strong>DMC:</strong> Duff Moisture Code – moisture content of loosely compacted organic layers.</li>
+        <li><strong>ISI:</strong> Initial Spread Index – rate of fire spread depending on wind and FFMC.</li>
+        <li><strong>Classes:</strong> Categorical outcome (fire or not fire) in the dataset.</li>
+        <li><strong>Region:</strong> Dataset region (1 = Bejaia, 2 = Sidi Bel-abbes).</li>
+      </ul>
+    </aside>
+  </div>
 </body>
 </html>
